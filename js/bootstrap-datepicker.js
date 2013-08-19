@@ -40,9 +40,9 @@
 
 		this.element = $(element);
 		this.isInline = false;
-		this.isInput = this.element.is('input');
+		this.isInput = this.element.is('input,textarea');
 		this.component = this.element.is('.date') ? this.element.find('.add-on, .btn') : false;
-		this.hasInput = this.component && this.element.find('input').length;
+		this.hasInput = this.component && this.element.find('input,textarea').length;
 		if(this.component && this.component.length === 0)
 			this.component = false;
 
@@ -230,7 +230,7 @@
 			else if (this.component && this.hasInput){ // component: input + button
 				this._events = [
 					// For components that are not readonly, allow keyboard nav
-					[this.element.find('input'), {
+					[this.element.find('input,textarea'), {
 						focus: $.proxy(this.show, this),
 						keyup: $.proxy(this.update, this),
 						keydown: $.proxy(this.keydown, this)
@@ -326,7 +326,7 @@
 				this.o.forceParse &&
 				(
 					this.isInput && this.element.val() ||
-					this.hasInput && this.element.find('input').val()
+					this.hasInput && this.element.find('input,textarea').val()
 				)
 			)
 				this.setValue();
@@ -378,7 +378,7 @@
 			var formatted = this.getFormattedDate();
 			if (!this.isInput) {
 				if (this.component){
-					this.element.find('input').val(formatted).change();
+					this.element.find('input,textarea').val(formatted).change();
 				}
 			} else {
 				this.element.val(formatted).change();
@@ -485,7 +485,7 @@
 					date = this._local_to_utc(date);
 				fromArgs = true;
 			} else {
-				date = this.isInput ? this.element.val() : this.element.data('date') || this.element.find('input').val();
+				date = this.isInput ? this.element.val() : this.element.data('date') || this.element.find('input,textarea').val();
 				delete this.element.data().date;
 			}
 
@@ -769,7 +769,7 @@
 								if (this.isInput)
 									element = this.element;
 								else if (this.component)
-									element = this.element.find('input');
+									element = this.element.find('input,textarea');
 								if (element)
 									element.val("").change();
 								this._trigger('changeDate');
@@ -844,7 +844,7 @@
 			if (this.isInput) {
 				element = this.element;
 			} else if (this.component){
-				element = this.element.find('input');
+				element = this.element.find('input,textarea');
 			}
 			if (element) {
 				element.change();
@@ -984,7 +984,7 @@
 				if (this.isInput) {
 					element = this.element;
 				} else if (this.component){
-					element = this.element.find('input');
+					element = this.element.find('input,textarea');
 				}
 				if (element) {
 					element.change();
@@ -1112,7 +1112,7 @@
 					opts = $.extend({}, defaults, locopts, elopts, options);
 				if ($this.is('.input-daterange') || opts.inputs){
 					var ropts = {
-						inputs: opts.inputs || $this.find('input').toArray()
+						inputs: opts.inputs || $this.find('input,textarea').toArray()
 					};
 					$this.data('datepicker', (data = new DateRangePicker(this, $.extend(opts, ropts))));
 				}
