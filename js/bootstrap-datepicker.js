@@ -221,7 +221,10 @@
 			if (this.isInput) { // single input
 				this._events = [
 					[this.element, {
-						focus: $.proxy(this.show, this),
+                        // IAH - comment out focus
+                        // results in two shows and two sets of events
+                        // clicking next/prev month jumps 2
+						//focus: $.proxy(this.show, this),
 						keyup: $.proxy(this.update, this),
 						keydown: $.proxy(this.keydown, this)
 					}]
