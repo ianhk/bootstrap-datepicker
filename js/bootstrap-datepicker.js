@@ -907,11 +907,14 @@
 		},
 
 		keydown: function(e){
-			if (this.picker.is(':not(:visible)')){
-				if (e.keyCode == 27) // allow escape to hide and re-show picker
-					this.show();
-				return;
-			}
+            // IAH esc only hides
+            // otherwise if deleting / recreating date picker the keydown
+            // handler doesn't unbind and old date pickers get shown
+			//if (this.picker.is(':not(:visible)')){
+			//	if (e.keyCode == 27) // allow escape to hide and re-show picker
+			//		this.show();
+			//	return;
+			//}
 			var dateChanged = false,
 				dir, day, month,
 				newDate, newViewDate;
