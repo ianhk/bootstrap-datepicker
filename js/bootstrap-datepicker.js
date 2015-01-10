@@ -215,7 +215,9 @@
 				el = evs[i][0];
 				ev = evs[i][1];
                 for (var j in ev) {
-                    el.off(j);
+                    if (ev.hasOwnProperty(j)) {
+                        el.off(j);
+                    }
                 }
 			}
 		},
