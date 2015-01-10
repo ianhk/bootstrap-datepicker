@@ -214,7 +214,9 @@
 			for (var i=0, el, ev; i<evs.length; i++){
 				el = evs[i][0];
 				ev = evs[i][1];
-				el.off(ev);
+                for (var j in ev) {
+				    el.off(j);
+                }
 			}
 		},
 		_buildEvents: function(){
@@ -225,8 +227,10 @@
                         // results in two shows and two sets of events
                         // clicking next/prev month jumps 2
 						//focus: $.proxy(this.show, this),
-						keyup: $.proxy(this.update, this),
-						keydown: $.proxy(this.keydown, this)
+                        // IAH 10-1-2015 - namespace events so they get
+                        // removed.
+						"keyup.bsdatepicker": $.proxy(this.update, this),
+						"keydown.bsdatepicker": $.proxy(this.keydown, this)
 					}]
 				];
 			}
@@ -256,13 +260,13 @@
 
 			this._secondaryEvents = [
 				[this.picker, {
-					click: $.proxy(this.click, this)
+					click.bsdatepicker: $.proxy(this.click, this)
 				}],
 				[$(window), {
-					resize: $.proxy(this.place, this)
+					resize.bsdatepicker: $.proxy(this.place, this)
 				}],
 				[$(document), {
-					'mousedown touchstart': $.proxy(function (e) {
+					'mousedown.bsdatepicker touchstart.bsdatepicker': $.proxy(function (e) {
 						// Clicked outside the datepicker, hide it
 						if (!(
 							this.element.is(e.target) ||
