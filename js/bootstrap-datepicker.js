@@ -215,7 +215,7 @@
 				el = evs[i][0];
 				ev = evs[i][1];
                 for (var j in ev) {
-				    el.off(j);
+                    el.off(j);
                 }
 			}
 		},
@@ -260,13 +260,13 @@
 
 			this._secondaryEvents = [
 				[this.picker, {
-					click.bsdatepicker: $.proxy(this.click, this)
+					"click.bsdatepicker": $.proxy(this.click, this)
 				}],
 				[$(window), {
-					resize.bsdatepicker: $.proxy(this.place, this)
+					"resize.bsdatepicker": $.proxy(this.place, this)
 				}],
 				[$(document), {
-					'mousedown.bsdatepicker touchstart.bsdatepicker': $.proxy(function (e) {
+					"mousedown.bsdatepicker touchstart.bsdatepicker": $.proxy(function (e) {
 						// Clicked outside the datepicker, hide it
 						if (!(
 							this.element.is(e.target) ||
